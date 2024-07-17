@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
 {
     private Animator animator;
     private Rigidbody2D _rb;
-    private CapsuleCollider2D _col;
+    private BoxCollider2D _col;
     private FrameInput _frameInput;
     private Vector2 _frameVelocity;
     private bool _cachedQueryStartInColliders;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     void Start()
     {
         _rb = gameObject.GetComponent<Rigidbody2D>();
-        _col = gameObject.GetComponent<CapsuleCollider2D>();
+        _col = gameObject.GetComponent<BoxCollider2D>();
         animator = gameObject.GetComponent<Animator>();
 
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
@@ -91,9 +91,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         // Ground and Ceiling
         bool groundHit =
-            Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, 0.05f);
+            Physics2D.BoxCast(_col.bounds.center, _col.size, 0, Vector2.down, 0.05f);
         bool ceilingHit =
-            Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, 0.05f);
+            Physics2D.BoxCast(_col.bounds.center, _col.size, 0, Vector2.up, 0.05f);
 
         // Hit a Ceiling
         if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
