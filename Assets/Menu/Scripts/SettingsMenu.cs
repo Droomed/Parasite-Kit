@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
@@ -21,7 +22,6 @@ public class SettingsMenu : MonoBehaviour
             masterSlider.value = volume;
         }
         
-        print("loading");
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             float volume = PlayerPrefs.GetFloat("musicVolume");
@@ -57,5 +57,14 @@ public class SettingsMenu : MonoBehaviour
     {
         sfxSlider.GetComponentInChildren<TextMeshProUGUI>().text = value.ToString("0.00");
         PlayerPrefs.SetFloat("sfxVolume", value);
+    }
+
+    public void OnBackPress()
+    {
+        string lastScene = GameManager.instance.lastScene;
+        if (lastScene != null)
+        {
+            SceneManager.LoadScene(lastScene);
+        }
     }
 }

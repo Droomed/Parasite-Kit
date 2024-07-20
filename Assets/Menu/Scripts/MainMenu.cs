@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     
     public void OnSettingsClick()
     {
+        GameManager.instance.lastScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("SettingsMenu");
     }
     
